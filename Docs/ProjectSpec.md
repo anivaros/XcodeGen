@@ -139,6 +139,7 @@ Note that target names can also be changed by adding a `name` property to a targ
   - `xcode15_3`: Xcode 15.3
   - `xcode15_0`: Xcode 15.0
   - `xcode14_0`: Xcode 14.0
+  - Unknown values fail spec validation.
 
 - [ ] **deploymentTarget**: **[[Platform](#platform): String]** - A project wide deployment target can be specified for each platform otherwise the default SDK version in Xcode will be used. This will be overridden by any custom build settings that set the deployment target eg `IPHONEOS_DEPLOYMENT_TARGET`. Target specific deployment targets can also be set with [Target](#target).deploymentTarget.
 - [ ] **disabledValidations**: **[String]** - A list of validations that can be disabled if they're too strict for your use case. By default this is set to an empty array. Currently these are the available options:

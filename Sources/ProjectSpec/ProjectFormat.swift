@@ -2,7 +2,7 @@ public extension ProjectFormat {
     static let `default`: ProjectFormat = .xcode16_0
 }
 
-public enum ProjectFormat: String {
+public enum ProjectFormat: String, CaseIterable {
     case xcode16_3
     case xcode16_0
     case xcode15_3

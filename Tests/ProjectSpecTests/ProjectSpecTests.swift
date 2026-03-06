@@ -450,6 +450,12 @@ class ProjectSpecTests: XCTestCase {
                 try expectValidationError(project, .missingDefaultConfig(configName: "foo"))
             }
 
+            $0.it("validates project format") {
+                var project = baseProject
+                project.options = SpecOptions(projectFormat: "xcode17_0")
+                try expectValidationError(project, .invalidProjectFormat("xcode17_0"))
+            }
+
             $0.it("validates config settings format") {
                 var project = baseProject
                 project.configs = Config.defaultConfigs

@@ -1442,6 +1442,7 @@ class SpecLoadingTests: XCTestCase {
                     createIntermediateGroups: true,
                     bundleIdPrefix: "com.test",
                     developmentLanguage: "ja",
+                    projectFormat: "xcode15_3",
                     deploymentTarget: DeploymentTarget(
                         iOS: "11.1",
                         tvOS: "10.0",
@@ -1466,6 +1467,7 @@ class SpecLoadingTests: XCTestCase {
                     "bundleIdPrefix": "com.test",
                     "createIntermediateGroups": true,
                     "developmentLanguage": "ja",
+                    "projectFormat": "xcode15_3",
                     "deploymentTarget": ["iOS": 11.1, "tvOS": 10.0, "watchOS": "3", "macOS": "10.12.1"],
                     "findCarthageFrameworks": true,
                     "preGenCommand": "swiftgen",
@@ -1481,6 +1483,23 @@ class SpecLoadingTests: XCTestCase {
                 ]]
                 let parsedSpec = try getProjectSpec(dictionary)
                 try expect(parsedSpec) == expected
+            }
+
+            $0.it("parses project format and fails validation for unknown values") {
+                let dictionary: [String: Any] = [
+                    "name": "test",
+                    "options": [
+                        "projectFormat": "xcode17_0",
+                    ],
+                ]
+
+                let parsedSpec = try getProjectSpec(dictionary)
+                try expect(parsedSpec.options.projectFormat) == "xcode17_0"
+                try expectError(
+                    SpecValidationError(errors: [.invalidProjectFormat("xcode17_0")])
+                ) {
+                    try parsedSpec.validate()
+                }
             }
 
             $0.it("parses packages") {

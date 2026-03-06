@@ -77,6 +77,10 @@ extension Project {
             }
         }
 
+        if let projectFormat = options.projectFormat, ProjectFormat(rawValue: projectFormat) == nil {
+            errors.append(.invalidProjectFormat(projectFormat))
+        }
+
         for settings in settingGroups.values {
             errors += validateSettings(settings)
         }

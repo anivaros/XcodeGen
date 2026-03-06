@@ -42,6 +42,7 @@ public struct SpecValidationError: Error, CustomStringConvertible {
         case multipleDefaultTestPlans
         case duplicateDependencies(target: String, dependencyReference: String)
         case invalidPluginPackageReference(plugin: String, package: String)
+        case invalidProjectFormat(String)
         case emptySourcePath(target: String)
 
         public var description: String {
@@ -110,6 +111,9 @@ public struct SpecValidationError: Error, CustomStringConvertible {
                  return "Target \(target.quoted) has the dependency \(dependencyReference.quoted) multiple times"
             case let .invalidPluginPackageReference(plugin, package):
                 return "Plugin \(plugin) has invalid package reference \(package)"
+            case let .invalidProjectFormat(projectFormat):
+                let supportedFormats = ProjectFormat.allCases.map(\.rawValue).joined(separator: ", ")
+                return "Invalid project format \(projectFormat.quoted). Supported values are: \(supportedFormats)"
             case let .emptySourcePath(target):
                 return "Target \(target.quoted) has an empty source path entry"
             }
